@@ -3,8 +3,14 @@ from dash import html, dcc, callback, Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
+import os
 
-dash.register_page(__name__, path='/sales')
+dash.register_page(__name__, path='/sales', title='Sales Analysis')
+
+def get_data_path(filename):
+    """Get absolute path to data file."""
+    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(current_dir, 'data', filename)
 
 def layout():
     return html.Div([
@@ -41,7 +47,7 @@ def layout():
     Input('url', 'pathname')
 )
 def update_sales_volume_graph(_):
-    sales_df = pd.read_csv('data/sales.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
     daily_orders = sales_df.groupby('date')['quantity'].sum().reset_index()
     fig = px.bar(daily_orders, x='date', y='quantity', 
                  color_discrete_sequence=['#000000'])
@@ -59,8 +65,8 @@ def update_sales_volume_graph(_):
     Input('url', 'pathname')
 )
 def update_sales_quantity_bar(_):
-    sales_df = pd.read_csv('data/sales.csv')
-    menu_df = pd.read_csv('data/menu.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
+    menu_df = pd.read_csv(get_data_path('menu.csv'))
     df = sales_df.merge(menu_df, on='dish_id')
     
     dish_quantity = df.groupby('dish_name')['quantity'].sum().nlargest(10).reset_index()
@@ -82,8 +88,8 @@ def update_sales_quantity_bar(_):
     Input('url', 'pathname')
 )
 def update_sales_revenue_bar(_):
-    sales_df = pd.read_csv('data/sales.csv')
-    menu_df = pd.read_csv('data/menu.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
+    menu_df = pd.read_csv(get_data_path('menu.csv'))
     df = sales_df.merge(menu_df, on='dish_id')
     
     dish_revenue = df.groupby('dish_name')['total_price'].sum().nlargest(10).reset_index()

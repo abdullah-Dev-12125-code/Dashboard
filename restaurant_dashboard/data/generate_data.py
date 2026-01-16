@@ -62,9 +62,11 @@ for date in dates:
 
 expenses_df = pd.DataFrame(expenses_records)
 
-# Save to CSV
-menu_df.to_csv('menu.csv', index=False)
-sales_df.to_csv('sales.csv', index=False)
-expenses_df.to_csv('expenses.csv', index=False)
+# Save to CSV in the current directory (data/)
+import os
+current_dir = os.path.dirname(os.path.abspath(__file__))
+menu_df.to_csv(os.path.join(current_dir, 'menu.csv'), index=False)
+sales_df.to_csv(os.path.join(current_dir, 'sales.csv'), index=False)
+expenses_df.to_csv(os.path.join(current_dir, 'expenses.csv'), index=False)
 
 print("Data generated successfully!")

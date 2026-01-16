@@ -4,8 +4,6 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 
-dash.register_page(__name__, path='/sales')
-
 def layout():
     return html.Div([
         html.H1("Sales Analysis", style={"font-weight": "bold", "font-family": "Georgia, serif", "color": "#000000"}),

@@ -1,0 +1,13 @@
+dish_id,dish_name,category,price
+1,Truffle Pasta,Main,24.99
+2,Classic Burger,Main,16.5
+3,Margherita Pizza,Main,14.0
+4,Grilled Salmon,Main,28.0
+5,Caesar Salad,Appetizer,12.5
+6,Steak Frites,Main,32.0
+7,Mushroom Risotto,Main,22.0
+8,Chicken Wings,Appetizer,10.0
+9,Tacos al Pastor,Main,15.0
+10,Sushi Platter,Main,35.0
+11,Chocolate Lava Cake,Dessert,9.0
+12,Tiramisu,Dessert,8.5

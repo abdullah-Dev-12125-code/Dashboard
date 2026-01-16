@@ -4,7 +4,7 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 
-dash.register_page(__name__, path='/staffing')
+dash.register_page(__name__, path='/staffing', title='Staffing')
 
 def layout():
     # Mock staffing data

@@ -3,7 +3,7 @@ from dash import html, dcc
 import dash_bootstrap_components as dbc
 import pandas as pd
 
-dash.register_page(__name__, path='/inventory')
+dash.register_page(__name__, path='/inventory', title='Inventory')
 
 def layout():
     # Mock inventory data

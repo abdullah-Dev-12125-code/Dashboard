@@ -4,8 +4,14 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import os
 
-dash.register_page(__name__, path='/financials')
+dash.register_page(__name__, path='/financials', title='Financials')
+
+def get_data_path(filename):
+    """Get absolute path to data file."""
+    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(current_dir, 'data', filename)
 
 def layout():
     return html.Div([
@@ -42,8 +48,8 @@ def layout():
     Input('url', 'pathname')
 )
 def update_rev_exp_graph(_):
-    sales_df = pd.read_csv('data/sales.csv')
-    expenses_df = pd.read_csv('data/expenses.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
+    expenses_df = pd.read_csv(get_data_path('expenses.csv'))
     
     daily_rev = sales_df.groupby('date')['total_price'].sum().reset_index()
     daily_exp = expenses_df.groupby('date')['amount'].sum().reset_index()
@@ -68,7 +74,7 @@ def update_rev_exp_graph(_):
     Input('url', 'pathname')
 )
 def update_expense_pie(_):
-    expenses_df = pd.read_csv('data/expenses.csv')
+    expenses_df = pd.read_csv(get_data_path('expenses.csv'))
     cat_exp = expenses_df.groupby('category')['amount'].sum().reset_index()
     
     fig = px.pie(cat_exp, values='amount', names='category',
@@ -81,8 +87,8 @@ def update_expense_pie(_):
     Input('url', 'pathname')
 )
 def update_profit_trend(_):
-    sales_df = pd.read_csv('data/sales.csv')
-    expenses_df = pd.read_csv('data/expenses.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
+    expenses_df = pd.read_csv(get_data_path('expenses.csv'))
     
     daily_rev = sales_df.groupby('date')['total_price'].sum().reset_index()
     daily_exp = expenses_df.groupby('date')['amount'].sum().reset_index()

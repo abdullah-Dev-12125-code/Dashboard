@@ -3,8 +3,14 @@ from dash import html, dcc, callback, Input, Output
 import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
+import os
 
-dash.register_page(__name__, path='/trends')
+dash.register_page(__name__, path='/trends', title='Hourly Trends')
+
+def get_data_path(filename):
+    """Get absolute path to data file."""
+    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(current_dir, 'data', filename)
 
 def layout():
     return html.Div([
@@ -35,7 +41,7 @@ def layout():
     Input('url', 'pathname')
 )
 def update_hourly_graph(_):
-    sales_df = pd.read_csv('data/sales.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
     hourly_sales = sales_df.groupby('hour')['quantity'].sum().reset_index()
     
     fig = px.bar(hourly_sales, x='hour', y='quantity', 
@@ -55,7 +61,7 @@ def update_hourly_graph(_):
     Input('url', 'pathname')
 )
 def update_heatmap(_):
-    sales_df = pd.read_csv('data/sales.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
     sales_df['date'] = pd.to_datetime(sales_df['date'])
     sales_df['day_of_week'] = sales_df['date'].dt.day_name()
     

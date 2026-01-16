@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowRight, BarChart3, TrendingUp, Users, Utensils } from "lucide-react";
 import { useState, useEffect } from "react";
+import { useLocation } from "wouter";
 
 /**
  * Design Philosophy: Modern Minimalist with Golden Accents
@@ -13,6 +14,7 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false);
+  const [, setLocation] = useLocation();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -44,6 +46,7 @@ export default function Home() {
                 <Button 
                   size="lg" 
                   className="bg-accent hover:bg-accent/90 text-foreground font-semibold"
+                  onClick={() => setLocation("/features")}
                 >
                   View Dashboard <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -51,6 +54,7 @@ export default function Home() {
                   size="lg" 
                   variant="outline"
                   className="border-foreground/20 hover:bg-secondary"
+                  onClick={() => setLocation("/gallery")}
                 >
                   Learn More
                 </Button>
@@ -211,6 +215,7 @@ export default function Home() {
           <Button 
             size="lg"
             className="bg-accent hover:bg-accent/90 text-foreground font-semibold"
+            onClick={() => setLocation("/features")}
           >
             Launch Dashboard <ArrowRight className="ml-2 h-4 w-4" />
           </Button>

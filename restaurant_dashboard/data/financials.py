@@ -5,8 +5,6 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-dash.register_page(__name__, path='/financials')
-
 def layout():
     return html.Div([
         html.H1("Financial Analysis", style={"font-weight": "bold", "font-family": "Georgia, serif", "color": "#000000"}),

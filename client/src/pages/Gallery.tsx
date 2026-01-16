@@ -1,6 +1,9 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { BarChart3, Utensils, TrendingUp, Clock, Package, Users, Home } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { useLocation } from "wouter";
 
 /**
  * Design Philosophy: Modern Minimalist with Golden Accents
@@ -10,6 +13,7 @@ import { BarChart3, Utensils, TrendingUp, Clock, Package, Users, Home } from "lu
  */
 
 export default function Gallery() {
+  const [, setLocation] = useLocation();
   return (
     <div className="min-h-screen bg-background py-24">
       <div className="container mx-auto px-4">
@@ -169,6 +173,35 @@ export default function Gallery() {
             </div>
           </div>
         </div>
+
+        {/* CTA Section */}
+        <section className="mt-24 py-24 bg-gradient-to-r from-foreground to-foreground/80 rounded-3xl">
+          <div className="text-center">
+            <h2 className="text-4xl font-serif font-bold text-background mb-6">
+              Ready to Explore?
+            </h2>
+            <p className="text-xl text-background/80 mb-8 max-w-2xl mx-auto">
+              Discover all the powerful features and analytics your restaurant dashboard offers.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <Button 
+                size="lg"
+                className="bg-accent hover:bg-accent/90 text-foreground font-semibold"
+                onClick={() => setLocation("/features")}
+              >
+                View All Features <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+              <Button 
+                size="lg"
+                variant="outline"
+                className="border-background text-background hover:bg-background/20"
+                onClick={() => setLocation("/")}
+              >
+                Back to Home
+              </Button>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   );

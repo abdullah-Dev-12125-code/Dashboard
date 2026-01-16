@@ -1,5 +1,8 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { BarChart3, PieChart, LineChart, TrendingUp, Users, Utensils, Clock, Package } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+import { useLocation } from "wouter";
 
 /**
  * Design Philosophy: Modern Minimalist with Golden Accents
@@ -9,6 +12,7 @@ import { BarChart3, PieChart, LineChart, TrendingUp, Users, Utensils, Clock, Pac
  */
 
 export default function Features() {
+  const [, setLocation] = useLocation();
   return (
     <div className="min-h-screen bg-background py-24">
       <div className="container mx-auto px-4">
@@ -133,6 +137,25 @@ export default function Features() {
           </div>
         </div>
       </div>
+
+      {/* CTA Section */}
+      <section className="py-24 bg-gradient-to-r from-foreground to-foreground/80">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-4xl font-serif font-bold text-background mb-6">
+            See It In Action
+          </h2>
+          <p className="text-xl text-background/80 mb-8 max-w-2xl mx-auto">
+            Explore the interactive gallery to see each dashboard page in detail.
+          </p>
+          <Button 
+            size="lg"
+            className="bg-accent hover:bg-accent/90 text-foreground font-semibold"
+            onClick={() => setLocation("/gallery")}
+          >
+            View Gallery <ArrowRight className="ml-2 h-4 w-4" />
+          </Button>
+        </div>
+      </section>
     </div>
   );
 }

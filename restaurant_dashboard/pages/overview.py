@@ -4,13 +4,19 @@ import dash_bootstrap_components as dbc
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import os
 
-dash.register_page(__name__, path='/')
+dash.register_page(__name__, path='/', title='Overview')
+
+def get_data_path(filename):
+    """Get absolute path to data file."""
+    current_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    return os.path.join(current_dir, 'data', filename)
 
 def layout():
     # Load data
-    sales_df = pd.read_csv('data/sales.csv')
-    menu_df = pd.read_csv('data/menu.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
+    menu_df = pd.read_csv(get_data_path('menu.csv'))
     
     total_revenue = sales_df['total_price'].sum()
     total_orders = len(sales_df)
@@ -75,7 +81,7 @@ def layout():
     Input('url', 'pathname')
 )
 def update_revenue_graph(_):
-    sales_df = pd.read_csv('data/sales.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
     daily_sales = sales_df.groupby('date')['total_price'].sum().reset_index()
     fig = px.line(daily_sales, x='date', y='total_price', 
                   color_discrete_sequence=['#FFD700'])
@@ -93,8 +99,8 @@ def update_revenue_graph(_):
     Input('url', 'pathname')
 )
 def update_category_graph(_):
-    sales_df = pd.read_csv('data/sales.csv')
-    menu_df = pd.read_csv('data/menu.csv')
+    sales_df = pd.read_csv(get_data_path('sales.csv'))
+    menu_df = pd.read_csv(get_data_path('menu.csv'))
     df = sales_df.merge(menu_df, on='dish_id')
     cat_sales = df.groupby('category')['total_price'].sum().reset_index()
     fig = px.pie(cat_sales, values='total_price', names='category',
